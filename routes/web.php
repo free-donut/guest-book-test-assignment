@@ -17,4 +17,4 @@
 */
 
 $router->get('/', ['uses' => 'GuestBookController@main','as' => 'book.main']);
-//$router->post('/', ['uses' => 'GuestBookController@store', 'as' => 'store']);
+$router->post('/store', ['uses' => 'GuestBookController@store', 'as' => 'store']);

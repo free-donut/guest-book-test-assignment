@@ -3,11 +3,10 @@
 
 <html>
     <body>
-        <h1>Hello</h1>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4">Fluid jumbotron</h1>
-                <p class="lead">Это модифицированный jumbotron, который занимает все горизонтальное пространство своего родителя.</p>
+                <h1 class="display-4">Guestbook</h1>
+                <p class="lead">Test task.</p>
                 @if (isset($errors))
                   @foreach ($errors as $message)
                       <p>{{ $message }}</p>
@@ -35,7 +34,32 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
 
-            </form>
+            </form>          
+
+            <p>List of added messages</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">User name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <div class="list-group">
+                        @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->message }}</td>
+                        </tr>
+                        @endforeach
+                    </div>
+                    </tbody>
+                </table>
+                {{ $users->links() }}
             </div>
         </div>
     </body>
