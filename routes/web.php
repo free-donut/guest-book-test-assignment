@@ -11,6 +11,10 @@
 |
 */
 
-$router->get('/', function () use ($router) {
+/*$router->get('/', function () use ($router) {
     return $router->app->version();
 });
+*/
+
+$router->get('/', ['uses' => 'GuestBookController@main','as' => 'book.main']);
+//$router->post('/', ['uses' => 'GuestBookController@store', 'as' => 'store']);
