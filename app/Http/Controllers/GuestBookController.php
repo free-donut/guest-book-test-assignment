@@ -25,7 +25,8 @@ class GuestBookController extends Controller
         //$users = User::orderBy('email', 'desc')->paginate(25);
         //$users = User::orderBy('email')->paginate(25);
         //$users = User::orderBy('created_at', 'desc')->paginate(25);
-        $users = User::orderBy('created_at')->paginate(25);
+        //$users = User::orderBy('created_at')->paginate(25);
+        $users = User::paginate(25);
         /*if ($request->has('errors')) {
             $errors = $request->input('errors');
             return view('main', ['errors' => $errors, 'users' => $users]);
@@ -54,9 +55,13 @@ class GuestBookController extends Controller
         $user->url = $request->input('url');
         $user->email = $request->input('email');
         $user->message = $request->input('message');
+        $browser = get_browser(NULL, true);
+        $user->browser = $browser['parent'];
+        //$user->browser = $request->server('HTTP_USER_AGENT');
+        $user->ip = $request->server("REMOTE_ADDR");
         $user->created_at = date("Y-m-d H:i:s");
         $user->save();
-        $id = $user->id;
+        //$id = $user->id;
         
         return redirect()->route('book.main');
     }

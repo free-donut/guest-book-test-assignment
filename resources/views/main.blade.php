@@ -1,6 +1,9 @@
 <!-- View stored in resources/views/main.blade.php -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
+<link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
 <html>
     <body>
         <div class="jumbotron jumbotron-fluid">
@@ -37,12 +40,21 @@
             </form>          
 
             <p>List of added messages</p>
-                <table class="table">
+                <table class="table"
+  id="table"
+  data-toggle="table"
+  data-height="460"
+  data-url="json/data1.json"
+  data-sort-name="name"
+  data-sort-order="desc">
                     <thead>
                         <tr>
-                            <th scope="col">User name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Date</th>
+                            <th scope="col" data-sortable="true">User name</th>
+                            <th scope="col" data-sortable="true">Email</th>
+                            <th scope="col" data-sortable="true">URL</th>
+                            <th scope="col" data-sortable="true">Date</th>
+                            <th scope="col" data-sortable="true">Browser</th>
+                            <th scope="col" data-sortable="true">IP adress</th>
                             <th scope="col">Message</th>
                         </tr>
                     </thead>
@@ -52,8 +64,11 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->url }}</td>
                             <td>{{ $user->created_at }}</td>
-                            <td>{{ $user->message }}</td>
+                            <td>{{ $user->browser }}</td>
+                            <td>{{ $user->ip }}</td>
+                            <td>{{{ $user->message }}}</td>
                         </tr>
                         @endforeach
                     </div>

@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 100);
             $table->string('url', 100);
             $table->text('message');
-            $table->string('browser', 100)->nullable();
+            $table->string('browser', 200)->nullable();
             $table->ipAddress('ip', 100)->nullable();
             $table->date('created_at');
         });
