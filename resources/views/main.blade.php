@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 @extends('layouts.master')
 
-@section('title', 'Page Title')
+@section('title', 'Main page')
 
 @section('master')
     @parent
@@ -13,11 +13,13 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">User name</th>
-                <th scope="col">Date</th>
-                <th scope="col">Email</th>
+                @foreach ($sortLinksData as $link)
+                    <th scope="col">
+                        <a href="{{ $link['href'] }} ">{{ $link['name'] }}</a>
+                    </th>
+                @endforeach
                 <th scope="col">Homepage</th>
-                <th scope="col">Browser</th>
+                <th scope="col">User agent info</th>
                 <th scope="col">IP adress</th>
                 <th scope="col">Message</th>
                 <th scope="col">To JSON</th>
@@ -38,5 +40,5 @@
         @endforeach
         </tbody>
     </table>
-{{ $users->links() }}
+{{ $users->appends(['column' => $sortedColumn, 'order' => $order])->links() }}
 @endsection

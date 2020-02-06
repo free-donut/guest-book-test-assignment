@@ -16,11 +16,11 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100);
-            $table->string('email', 100);
-            $table->string('url', 100);
+            $table->string('email', 256);
+            $table->string('url', 2048);
             $table->text('message');
-            $table->string('browser', 200)->nullable();
-            $table->ipAddress('ip', 100)->nullable();
+            $table->string('browser', 1024)->nullable();
+            $table->ipAddress('ip', 39)->nullable();
             $table->date('created_at');
         });
     }

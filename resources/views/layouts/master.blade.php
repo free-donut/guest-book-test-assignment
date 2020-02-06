@@ -1,7 +1,7 @@
 <!-- Stored in resources/views/layouts/master.blade.php -->
 <html>
     <head>
-        <title>App Name - @yield('title')</title>
+        <title>@yield('title')</title>
     </head>
     <body>
       <div class="jumbotron">
@@ -13,7 +13,7 @@
                 <p>{{ $message }}</p>
               @endforeach
             @endif
-            <form action="/store" method="post">
+            <form action="{{ route('book.create') }}" method="post">
               <div class="form-group">
                 <label for="formGroupExampleInput">User name</label>
                 <input type="text" name ="name" class="form-control" id="formGroupExampleInput" placeholder="User name">

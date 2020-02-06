@@ -13,29 +13,13 @@ class GuestBookController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
-    }
 
-    public function main(Request $request)
-    {
-        $users = User::orderBy('id', 'desc')->paginate(5);
-        //$users = User::paginate(25);
-        if ($request->has('errors')) {
-            $errors = $request->input('errors');
-            return view('main', ['errors' => $errors, 'users' => $users]);
-        }
-        return view('main', ['users' => $users]);
-    }
-
-
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'url' => 'url|max:255',
-            'email' => 'required|email|max:255',
+            'name' => 'required|max:100',
+            'url' => 'url|max:2048',
+            'email' => 'required|email|max:256',
             'message' => 'required|max:500',
         ]);
         
@@ -45,17 +29,17 @@ class GuestBookController extends Controller
         }
 
         $user = new User();
-        $browser = get_browser(null, true);
-        $user->browser = $browser['parent'];
         $user->name = $request->input('name');
         $user->url = $request->input('url');
         $user->email = $request->input('email');
         $user->message = strip_tags($request->input('message'));
+        $user->browser = $request->server('HTTP_USER_AGENT');
         $user->ip = $request->server("REMOTE_ADDR");
         $user->created_at = date("Y-m-d H:i:s");
         $user->save();
         return redirect()->route('book.main');
     }
+
     public function show($id)
     {
         $userToJson = User::find($id)->toJson(JSON_PRETTY_PRINT);

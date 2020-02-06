@@ -11,11 +11,6 @@
 |
 */
 
-/*$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
-*/
-
-$router->get('/', ['uses' => 'GuestBookController@main','as' => 'book.main']);
+$router->get('/', ['uses' => 'GuestBookMainController@main','as' => 'book.main']);
 $router->get('/{id}', ['uses' => 'GuestBookController@show', 'as' => 'book.show']);
-$router->post('/store', ['uses' => 'GuestBookController@store', 'as' => 'book.store']);
+$router->post('/store', ['uses' => 'GuestBookController@store', 'as' => 'book.create']);
