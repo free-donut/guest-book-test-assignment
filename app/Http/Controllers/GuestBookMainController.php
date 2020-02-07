@@ -34,7 +34,7 @@ class GuestBookMainController extends Controller
             $order = $defaultSort['order'];
         }
 
-        $sortLinksData = $newSortableColumns ? getSortLinksData($newSortableColumns) :
+        $sortLinksData = isset($newSortableColumns) ? getSortLinksData($newSortableColumns) :
             getSortLinksData($sortableColumns);
 
         $users = User::orderBy($sortedColumn, $order)->paginate(5);
