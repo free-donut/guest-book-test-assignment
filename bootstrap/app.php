@@ -79,6 +79,9 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->configure('view');
+$app->register(Illuminate\View\ViewServiceProvider::class);
+$app->register(Kyslik\ColumnSortable\ColumnSortableServiceProvider::class);
 if (env('APP_DEBUG')) {
     $app->configure('debugbar');
     $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);

@@ -1,19 +1,37 @@
 <?php
-if (! function_exists('getSortLinksData')) {
-    function getSortLinksData($sortableColumns)
+
+if ( ! function_exists('config_path'))
+{
+    /* Get the configuration path.
+     *
+     * @param  string $path
+     * @return string
+     */
+    function config_path($path = '')
     {
-        return array_map(function ($key, $value) {
-            $href = "?column=$key&order=$value[order]";
-            $name = $value['columnName'];
-            return ['name' => $name,'href' => $href];
-        }, array_keys($sortableColumns), $sortableColumns);
+        return app()->basePath() . '/config' . ($path ? '/' . $path : $path);
     }
 }
 
-if (! function_exists('getNewSortableCollumns')) {
-    function getNewSortableCollumns($sortableColumns, $sortedColumn, $order)
+if (! function_exists('request')) {
+    /* Get an instance of the current request or an input item from the request.
+     *
+     * @param  array|string|null  $key
+     * @param  mixed  $default
+     * @return \Illuminate\Http\Request|string|array
+     */
+    function request($key = null, $default = null)
     {
-        $sortableColumns[$sortedColumn]['order'] = ($order === 'desc') ? 'asc' : 'desc';
-        return $sortableColumns;
+        if (is_null($key)) {
+            return app('request');
+        }
+
+        if (is_array($key)) {
+            return app('request')->only($key);
+        }
+
+        $value = app('request')->__get($key);
+
+        return is_null($value) ? value($default) : $value;
     }
 }

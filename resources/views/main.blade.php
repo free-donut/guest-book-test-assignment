@@ -13,11 +13,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                @foreach ($sortLinksData as $link)
-                    <th scope="col">
-                        <a href="{{ $link['href'] }} ">{{ $link['name'] }}</a>
-                    </th>
-                @endforeach
+                <th scope="col">@sortablelink('name', 'user name')</th>
+                <th scope="col">@sortablelink('created_at', 'date')</th>
+                <th scope="col">@sortablelink('email')</th>
                 <th scope="col">Homepage</th>
                 <th scope="col">User agent info</th>
                 <th scope="col">IP adress</th>
@@ -40,5 +38,5 @@
         @endforeach
         </tbody>
     </table>
-{{ $users->appends(['column' => $sortedColumn, 'order' => $order])->links() }}
+{{ $users->appends(request()->except('page'))->render() }}
 @endsection
