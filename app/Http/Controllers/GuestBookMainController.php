@@ -15,13 +15,9 @@ class GuestBookMainController extends Controller
 
     public function main(Request $request)
     {
-        $sortTypes = ['asc' , 'desc'];
-        $sortableColumns = [
-            'name' => ['columnName' => 'User name', 'order' => 'desc'],
-            'created_at' => ['columnName' => 'Date', 'order' => 'desc'],
-            'email' => ['columnName' => 'Email', 'order' => 'desc']
-        ];
-        $defaultSort = ['order' => 'desc', 'column' => 'id'];
+        $sortTypes = config('sort.sortTypes');
+        $sortableColumns = config('sort.sortableColumns');
+        $defaultSort = config('sort.defaultSort');
 
         if (
             in_array($request->query('order'), $sortTypes) &&
@@ -29,13 +25,12 @@ class GuestBookMainController extends Controller
         ) {
             [$order, $sortedColumn] = [$request->query('order'), $request->query('column')];
             $newSortableColumns = getNewSortableCollumns($sortableColumns, $sortedColumn, $order);
+            $sortLinksData = getSortLinksData($newSortableColumns);
         } else {
             $sortedColumn = $defaultSort['column'];
             $order = $defaultSort['order'];
+            $sortLinksData = getSortLinksData($sortableColumns);
         }
-
-        $sortLinksData = isset($newSortableColumns) ? getSortLinksData($newSortableColumns) :
-            getSortLinksData($sortableColumns);
 
         $users = User::orderBy($sortedColumn, $order)->paginate(5);
 
