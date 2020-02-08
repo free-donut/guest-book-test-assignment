@@ -5,14 +5,13 @@
 @section('title', 'JSON page')
 
 @section('master')
-    @parent
+  @parent
 @endsection
 
 @section('content')
-<p>JSON data</p>
+	<p>JSON data</p>
 
-<p>{{ $userToJson }}</p>
+	<p>{{ $userToJson }}</p>
 
-<a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Return</a>
-
+	<a href="/" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Return</a>
 @endsection
