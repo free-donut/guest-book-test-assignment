@@ -10,10 +10,12 @@
         <p class="lead">Test task.</p>
         @if (isset($errors))
           @foreach ($errors as $message)
-            <p>{{ $message }}</p>
+            <div class="alert alert-warning" role="alert">
+              {{ $message }}
+            </div>
           @endforeach
         @endif
-        <form action="{{ route('book.create') }}" method="post">
+        <form action="{{ route('guestbook.create') }}" method="post">
           <div class="form-group">
             <label for="formGroupExampleInput">User name</label>
             <input type="text" name ="name" class="form-control" id="formGroupExampleInput" placeholder="User name">
