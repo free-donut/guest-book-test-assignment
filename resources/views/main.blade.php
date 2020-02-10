@@ -40,5 +40,5 @@
         @endforeach
         </tbody>
     </table>
-{{ $users->appends(['column' => $sortedColumn, 'order' => $order])->links() }}
+{{ $users->appends(['column' => $column, 'order' => $order])->links() }}
 @endsection

@@ -1,4 +1,17 @@
 <?php
+
+if (! function_exists('getNewSortableCollumns')) {
+    function getNewSortableCollumns($sortableColumns, $sortedColumn, $order, $sortTypes)
+    {
+        if ($order === $sortTypes[0]) {
+            $sortableColumns[$sortedColumn]['order'] = $sortTypes[1];
+        } else {
+            $sortableColumns[$sortedColumn]['order'] = $sortTypes[0];
+        }
+        return $sortableColumns;
+    }
+}
+
 if (! function_exists('getSortLinksData')) {
     function getSortLinksData($sortableColumns)
     {
@@ -10,10 +23,19 @@ if (! function_exists('getSortLinksData')) {
     }
 }
 
-if (! function_exists('getNewSortableCollumns')) {
-    function getNewSortableCollumns($sortableColumns, $sortedColumn, $order)
+if (! function_exists('getSortData')) {
+    function getSortData($sortableColumns, $sortTypes, $defaultSort, $userSort)
     {
-        $sortableColumns[$sortedColumn]['order'] = ($order === 'desc') ? 'asc' : 'desc';
-        return $sortableColumns;
+        $order = $userSort['order'];
+        $column = $userSort['column'];
+        if (in_array($order, $sortTypes) && array_key_exists($column, $sortableColumns)) {
+            $newSortableColumns = getNewSortableCollumns($sortableColumns, $column, $order, $sortTypes);
+            $sortLinksData = getSortLinksData($newSortableColumns);
+            return [$sortLinksData, $column, $order];
+        } else {
+            $sortLinksData = getSortLinksData($sortableColumns);
+            return [$sortLinksData, $defaultSort['column'], $defaultSort['order']];
+        }
     }
+
 }

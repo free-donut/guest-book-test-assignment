@@ -19,26 +19,20 @@ class GuestBookMainController extends Controller
         $sortableColumns = config('sort.sortableColumns');
         $defaultSort = config('sort.defaultSort');
 
-        if (
-            in_array($request->query('order'), $sortTypes) &&
-            array_key_exists($request->query('column'), $sortableColumns)
-        ) {
-            [$order, $sortedColumn] = [$request->query('order'), $request->query('column')];
-            $newSortableColumns = getNewSortableCollumns($sortableColumns, $sortedColumn, $order);
-            $sortLinksData = getSortLinksData($newSortableColumns);
-        } else {
-            $sortedColumn = $defaultSort['column'];
-            $order = $defaultSort['order'];
-            $sortLinksData = getSortLinksData($sortableColumns);
-        }
+        $userSort = [
+            'order' => $request->query('order', null),
+            'column' => $request->query('column', null)
+        ];
 
-        $users = User::orderBy($sortedColumn, $order)->paginate(5);
+        [$sortLinksData, $column, $order] = getSortData($sortableColumns, $sortTypes, $defaultSort, $userSort);
+
+        $users = User::orderBy($column, $order)->paginate(5);
 
         if ($request->has('errors')) {
             $errors = $request->input('errors');
-            return view('main', compact('errors', 'users', 'sortedColumn', 'order', 'sortLinksData'));
+            return view('main', compact('errors', 'users', 'column', 'order', 'sortLinksData'));
         }
 
-        return View('main', compact('users', 'sortedColumn', 'order', 'sortLinksData'));
+        return View('main', compact('users', 'column', 'order', 'sortLinksData'));
     }
 }
