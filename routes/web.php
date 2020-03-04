@@ -11,6 +11,6 @@
 |
 */
 
-$router->get('/', ['uses' => 'GuestBookMainController@main','as' => 'guestbook.main']);
+$router->get('/', ['uses' => 'HomePageController@index','as' => 'home']);
 $router->get('/{id}', ['uses' => 'GuestBookController@show', 'as' => 'guestbook.show']);
-$router->post('/store', ['uses' => 'GuestBookController@create', 'as' => 'guestbook.create']);
+$router->post('/store', ['uses' => 'GuestBookController@store', 'as' => 'guestbook.store']);

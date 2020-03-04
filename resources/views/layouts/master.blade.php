@@ -15,7 +15,7 @@
             </div>
           @endforeach
         @endif
-        <form action="{{ route('guestbook.create') }}" method="post">
+        <form action="{{ route('guestbook.store') }}" method="post">
           <div class="form-group">
             <label for="formGroupExampleInput">User name</label>
             <input type="text" name ="name" class="form-control" id="formGroupExampleInput" placeholder="User name">

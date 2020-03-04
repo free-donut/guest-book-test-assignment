@@ -20,5 +20,8 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+        'url' => $faker->url,
+        'message' => $faker->text,
+        'created_at' => '2020-02-10',
     ];
 });

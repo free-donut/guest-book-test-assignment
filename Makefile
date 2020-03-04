@@ -1,3 +1,5 @@
+test:
+	composer run-script phpunit tests
 install:
 	composer install
 lint:

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
-class GuestBookMainController extends Controller
+class HomePageController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -13,15 +13,15 @@ class GuestBookMainController extends Controller
      * @return void
      */
 
-    public function main(Request $request)
+    public function index(Request $request)
     {
-        $users = User::sortable('id')->paginate(5);
+        $users = User::sortable('id')->paginate(3);
 
         if ($request->has('errors')) {
             $errors = $request->input('errors');
-            return view('main', compact('errors', 'users'));
+            return view('home', compact('errors', 'users'));
         }
 
-        return View('main', compact('users'));
+        return View('home', compact('users'));
     }
 }

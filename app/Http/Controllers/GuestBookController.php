@@ -14,7 +14,7 @@ class GuestBookController extends Controller
      * @return void
      */
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
@@ -25,7 +25,7 @@ class GuestBookController extends Controller
         
         if ($validator->fails()) {
             $errors = $validator->errors()->all();
-            return redirect()->route('guestbook.main', ['errors' => $errors]);
+            return redirect()->route('home', ['errors' => $errors]);
         }
 
         $user = new User();
@@ -37,7 +37,7 @@ class GuestBookController extends Controller
         $user->ip = $request->server("REMOTE_ADDR");
         $user->created_at = date("Y-m-d H:i:s");
         $user->save();
-        return redirect()->route('guestbook.main');
+        return redirect()->route('home');
     }
 
     public function show($id)
@@ -45,8 +45,7 @@ class GuestBookController extends Controller
         $user = User::find($id);
         
         if (!$user) {
-            $errors[] = 'Page not found';
-            return redirect()->route('guestbook.main', ['errors' => $errors]);
+            abort(404);
         }
         $userToJson = $user->toJson(JSON_PRETTY_PRINT);
         return view('json_page', ['userToJson' => $userToJson]);
